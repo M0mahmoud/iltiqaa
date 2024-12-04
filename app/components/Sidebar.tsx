@@ -24,7 +24,7 @@ export default function Sidebar() {
     ];
     return (
         <div className="w-full lg:max-w-64 lg:min-h-screen ">
-            <nav className="flex lg:flex-col p-4 gap-2 w-full">
+            <nav className="flex lg:flex-col lg:p-4 gap-2 w-full">
                 {navigation.map((item) => {
                     const isActive = pathname === item.href;
                     return (

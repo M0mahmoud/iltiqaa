@@ -6,7 +6,7 @@ import React, { useState } from "react";
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+    const closeMenu = () => setIsMenuOpen(false);
     return (
         <header className="bg-white shadow-sm">
             <div className="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
@@ -26,7 +26,7 @@ export default function Header() {
                     <div className="md:hidden">
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="text-primary"
+                            className="text-primary z-50 relative"
                         >
                             {isMenuOpen ? (
                                 <X className="h-6 w-6" />
@@ -38,24 +38,26 @@ export default function Header() {
 
                     {/* Desktop menu */}
                     <div className="hidden md:flex items-center gap-5">
-                        <NavItems />
+                        <NavItems closeMenu={closeMenu} />
                     </div>
                 </div>
             </div>
 
             {/* Mobile menu */}
-            {isMenuOpen && (
-                <div className="md:hidden">
-                    <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                        <NavItems />
-                    </div>
+            <div
+                className={`fixed inset-0 bg-white z-40 transform transition-transform duration-300 ease-in-out ${
+                    isMenuOpen ? "translate-x-0" : "translate-x-full"
+                } md:hidden`}
+            >
+                <div className="flex flex-col justify-center items-center h-full">
+                    <NavItems closeMenu={closeMenu} />
                 </div>
-            )}
+            </div>
         </header>
     );
 }
 
-function NavItems() {
+function NavItems({ closeMenu }: { closeMenu: () => void }) {
     return (
         <>
             <Link href="/" className="text-primary text-xl block py-2 md:py-0">
@@ -68,18 +70,24 @@ function NavItems() {
                 Contact
             </Link>
             <div className="relative py-2 md:py-0">
-                <button className="flex items-center text-xl font-medium text-primary">
+                <button
+                    className="flex items-center text-xl font-medium text-primary"
+                    onClick={closeMenu}
+                >
                     <Heart className="h-5 w-5 text-primary" />
                     <span className="ms-1">Favourite</span>
                 </button>
             </div>
             <div className="relative py-2 md:py-0">
-                <button className="flex items-center text-xl font-medium text-primary">
+                <button
+                    className="flex items-center text-xl font-medium text-primary"
+                    onClick={closeMenu}
+                >
                     <Globe className="h-5 w-5 text-primary" />
                     <span className="ms-1">EN</span>
                 </button>
             </div>
-            <div className="flex items-center py-2 md:py-0">
+            <div className="flex items-center py-2 md:py-0" onClick={closeMenu}>
                 <Image
                     className="h-8 w-8 rounded-full"
                     src="/user.png"

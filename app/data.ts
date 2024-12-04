@@ -76,7 +76,7 @@ export const MOCK_PROPERTIES: Unit[] = [
         addedDate: "5/7/2020",
     },
     {
-        id: "1233",
+        id: "123309",
         title: "Grand House Real Estate",
         location: "New Cairo, Egypt",
         price: 7500000,
